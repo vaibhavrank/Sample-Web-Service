@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PART 1 IA2</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        input, button { padding: 10px; margin: 5px; }
+        ul { list-style: none; padding: 0; }
+        li { padding: 5px 0; }
+    </style>
+</head>
+<body>
+    <h1>Sample Web Service</h1>
+    <input type="text" id="taskInput" placeholder="Enter task">
+    <button onclick="addTask()">Add Task</button>
+    <ul id="taskList"></ul>
+
+    <script>
+        async function fetchTasks() {
+            const response = await fetch('/api/tasks');
+            const tasks = await response.json();
+            const taskList = document.getElementById('taskList');
+            taskList.innerHTML = '';
+            tasks.forEach(task => {
+                const li = document.createElement('li');
+                li.textContent = task.task;
+                taskList.appendChild(li);
+            });
+        }
+
+        async function addTask() {
+            const taskInput = document.getElementById('taskInput');
+            const task = taskInput.value.trim();
+            if (task) {
+                await fetch('/api/tasks', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ task }),
+                });
+                taskInput.value = '';
+                fetchTasks();
+            }
+        }
+
+        // Load tasks on page load
+        fetchTasks();
+    </script>
+</body>
+</html>
