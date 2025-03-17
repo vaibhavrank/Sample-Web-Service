@@ -7,6 +7,10 @@ A simple HTTP-based web service built with Node.js and Express. The service allo
 - View all tasks
 - Simple and clean UI
 - RESTful API endpoints
+---
+
+## 🌐 Live Demo
+[View the Live App](https://sample-web-service-vrk4.onrender.com/)
 
 ---
 
